@@ -16,11 +16,13 @@ allele_dynamics <- function(eps, q, ng, ns) {
     for (j in 2:ng) {
       # Calculate change in allele proportion based on genetic drift
       q_vec[j] <- q_vec[j-1] + rnorm(1, mean = 0, sd = sqrt(q_vec[j-1]*p_vec[j-1]/eps))
+      # Truncate values less than 0 or greater than 1
+      q_vec[j] <- ifelse(q_vec[j] < 0, 0, ifelse(q_vec[j] > 1, 1, q_vec[j]))
       p_vec[j] <- 1 - q_vec[j]
     }
     # Add results to data frame
     results <- rbind(results, data.frame(generation = 1:ng, A1 = q_vec, A2 = p_vec, simulation = i,stringsAsFactors = F))
   }
-  
+  results$simulation <- as.factor(results$simulation)
   return(results)
 }

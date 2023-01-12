@@ -11,8 +11,8 @@ ui <- fluidPage(
   # Sidebar with slide bars
   sidebarLayout(
     sidebarPanel(
-      sliderInput("ne", "Effective population size", 
-                  min = 10, max = 1000000, value = 100, step = 10),
+      numericInput("ne", "Effective population size", 
+                  min = 10, max = 15000, value = 100, step = 10),
       sliderInput("a1", "Proportion of allele A1", 
                   min = 0.1, max = 0.9, value = 0.5, step = 0.1),
       sliderInput("gen", "Number of generations", 
